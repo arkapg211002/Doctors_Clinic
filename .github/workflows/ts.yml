@@ -1,0 +1,19 @@
+name: Generate Tree Structure
+
+on:
+  push:
+    branches:
+      - main  # Modify this according to your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate Tree Structure
+        run: |
+          git ls-files > tree_structure.txt
+          echo "Tree structure saved to tree_structure.txt"
+        shell: bash
