@@ -1,19 +1,28 @@
 name: Generate Tree Structure
 
 on:
-  push:
-    branches:
-      - main  # Modify this according to your default branch
+  schedule: # Adjust the schedule according to your preference
+    - cron: "0 18 * * *"  # Runs daily at 18:00 UTC
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: Generate Tree Structure
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Generate Tree Structure
         run: |
-          git ls-files > tree_structure.txt
+          git ls-tree -r HEAD > tree_structure.txt
           echo "Tree structure saved to tree_structure.txt"
         shell: bash
+
+      - name: Commit & Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add tree_structure.txt
+          git commit -m "Generated tree structure"
+          git push
