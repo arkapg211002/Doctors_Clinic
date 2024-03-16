@@ -1,5 +1,4 @@
 name: Generate Tree Structure
-
 on:
   schedule: # Adjust the schedule according to your preference
     - cron: "0 18 * * *"  # Runs daily at 18:00 UTC
